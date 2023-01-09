@@ -33,8 +33,9 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-alias ll='exa -l -g --icons'
-alias lla='ll -a'
+alias ll='exa -l -g --icons --group-directories-first --git --octal-permissions --no-filesize --time-style long-iso --no-permissions --no-user'
+alias ls='ll -s modified -r'
+alias la='ll -a'
 alias gs='git status -s'
 alias n='nvim .'
 alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"

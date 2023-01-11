@@ -37,6 +37,7 @@ alias ll='exa -l -g --icons --group-directories-first --git --octal-permissions 
 alias ls='ll -s modified -r'
 alias la='ll -a'
 alias gs='git status -s'
+alias repos="cd $GIT_REPOS_DIR && git-status"
 alias n='nvim .'
 alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"
 
@@ -87,7 +88,11 @@ export PATH=$PATH:"$LOCAL_BIN"
 export PATH=$PATH:"$PYENV_ROOT/bin"
 export PATH=$PATH:"$HOME/.config/rofi/scripts"
 
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 eval "$(direnv hook zsh)"
+
+test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh

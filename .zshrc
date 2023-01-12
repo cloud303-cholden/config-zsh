@@ -33,16 +33,6 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-alias sudo='sudo '
-alias apt='nala'
-alias ll='exa -l -g --icons --group-directories-first --git --octal-permissions --no-filesize --time-style long-iso --no-permissions --no-user'
-alias ls='ll -s modified -r'
-alias la='ll -a'
-alias gs='git status -s'
-alias repos="cd $GIT_REPOS_DIR && git-status"
-alias n='nvim .'
-alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"
-
 export PYENV_ROOT="$HOME/.pyenv"
 export PIPX_DEFAULT_PYTHON="$PYENV_ROOT/versions/3.10.5/bin/python"
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:'/usr/lib/x86_64-linux-gnu/pkgconfig'
@@ -90,13 +80,25 @@ export PATH=$PATH:"$LOCAL_BIN"
 export PATH=$PATH:"$PYENV_ROOT/bin"
 export PATH=$PATH:"$HOME/.config/rofi/scripts"
 
+alias sudo='sudo '
+alias apt='nala'
+alias ll='exa -l -g --icons --group-directories-first --git --octal-permissions --no-filesize --time-style long-iso --no-permissions --no-user'
+alias ls='ll -s modified -r'
+alias la='ll -a'
+alias gs='git status -s'
+alias repos="cd $GIT_REPOS_DIR && git-status"
+alias n='nvim .'
+alias tf='terraform'
+alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"
+
+
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(direnv hook zsh)"
 
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh

@@ -42,6 +42,7 @@ export PYTHON3_HOST_PROG='/usr/bin/python3'
 export XDG_CONFIG_HOME="$HOME/.config"
 export GIT_REPOS_DIR="$HOME/repos"
 export NVIM_CONFIG="$GIT_REPOS_DIR/config-nvim"
+export ZSH_CONFIG="$GIT_REPOS_DIR/config-zsh"
 export GOROOT='/usr/local/go'
 export GOPATH="$HOME/go"
 export LOCAL_BIN="$HOME/.local/bin"

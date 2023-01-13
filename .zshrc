@@ -91,7 +91,7 @@ alias repos="cd $GIT_REPOS_DIR && git-status"
 alias n='nvim .'
 alias tf='terraform'
 alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"
-
+alias ssm="aws ssm start-session --target $INSTANCE_ID"
 
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"

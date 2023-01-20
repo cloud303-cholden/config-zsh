@@ -5,6 +5,8 @@ setopt histignorealldups sharehistory
 
 # Use vi keybindings
 bindkey -v
+bindkey "^?" backward-delete-char
+bindkey -r "^J"
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
@@ -96,10 +98,10 @@ alias ssm="aws ssm start-session --target $INSTANCE_ID"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(direnv hook zsh)"
+eval "$(atuin init zsh)"
 
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh

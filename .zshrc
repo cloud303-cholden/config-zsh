@@ -7,6 +7,7 @@ setopt histignorealldups sharehistory
 bindkey -v
 bindkey "^?" backward-delete-char
 bindkey -r "^J"
+bindkey -M viins 'jk' vi-cmd-mode
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
@@ -53,6 +54,7 @@ export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
 export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
 export _ZL_CD='cd'
 export PYTHONDONTWRITEBYTECODE=1
+export KEYTIMEOUT=20
 
 export FZF_DEFAULT_OPTS='
   --height 40% --layout=reverse --border
@@ -85,7 +87,7 @@ export PATH=$PATH:"$HOME/.config/rofi/scripts"
 
 alias sudo='sudo '
 alias apt='nala'
-alias ll='exa -l -g --icons --group-directories-first --git --octal-permissions --no-filesize --time-style long-iso --no-permissions --no-user'
+alias ll='exa -l -g --icons --group-directories-first --octal-permissions --no-filesize --time-style long-iso --no-permissions --no-user'
 alias ls='ll -s modified -r'
 alias la='ll -a'
 alias gs='git status -s'

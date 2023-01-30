@@ -99,6 +99,7 @@ alias run='./run.sh'
 
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 eval "$(direnv hook zsh)"
 eval "$(atuin init zsh)"
 

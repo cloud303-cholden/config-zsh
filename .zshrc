@@ -9,6 +9,15 @@ bindkey "^?" backward-delete-char
 bindkey -r "^J"
 bindkey -M viins 'jk' vi-cmd-mode
 
+# Yank to the system clipboard
+function vi-yank-xclip {
+  zle vi-yank
+  echo -n "$CUTBUFFER" | xclip -selection clipboard
+}
+
+zle -N vi-yank-xclip
+bindkey -M vicmd 'y' vi-yank-xclip
+
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
 SAVEHIST=5000

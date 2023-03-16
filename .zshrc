@@ -8,6 +8,7 @@ bindkey -v
 bindkey "^?" backward-delete-char
 bindkey -r "^J"
 bindkey -M viins 'jk' vi-cmd-mode
+bindkey '^[^M' self-insert-unmeta
 
 # Yank to the system clipboard
 function vi-yank-xclip {
@@ -82,7 +83,6 @@ ZSH_HIGHLIGHT_STYLES[arg0]='fg=#81A1C1,bold'
 
 export PATH=$PATH:"$HOMEBREW_PREFIX/bin"
 export PATH=$PATH:"$HOMEBREW_PREFIX/sbin"
-export PATH=$PATH:'/usr/local/go/bin'
 export PATH=$PATH:"$GOPATH/bin"
 export PATH=$PATH:"$GOROOT/bin"
 export PATH=$PATH:"$HOME/.pyenv/bin"
@@ -106,7 +106,9 @@ alias tf='terraform'
 alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"
 alias run='./run.sh'
 
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+alias dc='docker ps --format "{\"name\":\"{{.Names}}\", \"id\":\"{{.ID}}\", \"image\":\"{{.Image}}\", \"status\":\"{{.Status}}\"}" | jq --slurp | yq -P'
+alias di='docker images --format "{\"image\":\"{{.Repository}}:{{.Tag}}\", \"description\":\"{{.ID}} ({{.Size}}, {{.CreatedSince}})\"}" | jq --slurp | yq -P'
+
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(direnv hook zsh)"

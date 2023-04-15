@@ -93,6 +93,7 @@ export PATH=$PATH:"$HOME/.local/share/flatpak/exports/bin"
 export PATH=$PATH:"$LOCAL_BIN"
 export PATH=$PATH:"$PYENV_ROOT/bin"
 export PATH=$PATH:"$HOME/.config/rofi/scripts"
+export PATH="$PATH:`yarn global bin`"
 
 alias sudo='sudo '
 alias apt='nala'
@@ -109,7 +110,8 @@ alias run='./run.sh'
 alias dc='docker ps --format "{\"name\":\"{{.Names}}\", \"id\":\"{{.ID}}\", \"image\":\"{{.Image}}\", \"status\":\"{{.Status}}\"}" | jq --slurp | yq -P'
 alias di='docker images --format "{\"image\":\"{{.Repository}}:{{.Tag}}\", \"description\":\"{{.ID}} ({{.Size}}, {{.CreatedSince}})\"}" | jq --slurp | yq -P'
 
-eval "$(pyenv init -)"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(direnv hook zsh)"
 eval "$(atuin init zsh)"

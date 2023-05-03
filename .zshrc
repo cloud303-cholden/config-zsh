@@ -53,6 +53,7 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:'/usr/share/pkgconfig'
 export BAT_THEME='Nord'
 export PYTHON3_HOST_PROG='/usr/bin/python3'
 export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
 export GIT_REPOS_DIR="$HOME/repos"
 export NVIM_CONFIG="$GIT_REPOS_DIR/config-nvim"
 export ZSH_CONFIG="$GIT_REPOS_DIR/config-zsh"

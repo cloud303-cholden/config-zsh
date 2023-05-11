@@ -102,7 +102,7 @@ alias lls='ll -s modified -r'
 alias la='ll -a'
 alias gs='git status -s'
 alias repos="cd $GIT_REPOS_DIR && git-status"
-alias n='nvim .'
+alias n='nvim'
 alias tf='terraform'
 alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"
 alias run='./run.sh'

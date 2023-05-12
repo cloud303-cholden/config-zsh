@@ -106,6 +106,7 @@ alias n='nvim'
 alias tf='terraform'
 alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"
 alias run='./run.sh'
+alias jn='euporie-notebook'
 
 alias dc='docker ps --format "{\"name\":\"{{.Names}}\", \"id\":\"{{.ID}}\", \"image\":\"{{.Image}}\", \"status\":\"{{.Status}}\"}" | jq --slurp | yq -P'
 alias di='docker images --format "{\"image\":\"{{.Repository}}:{{.Tag}}\", \"description\":\"{{.ID}} ({{.Size}}, {{.CreatedSince}})\"}" | jq --slurp | yq -P'

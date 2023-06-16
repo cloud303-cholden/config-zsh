@@ -66,6 +66,7 @@ export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
 export _ZL_CD='cd'
 export PYTHONDONTWRITEBYTECODE=1
 export KEYTIMEOUT=20
+export EDITOR='nvim'
 
 export FZF_DEFAULT_OPTS='
   --height 40% --layout=reverse --border
@@ -95,6 +96,7 @@ export PATH=$PATH:"$LOCAL_BIN"
 export PATH=$PATH:"$PYENV_ROOT/bin"
 export PATH=$PATH:"$HOME/.config/rofi/scripts"
 export PATH="$PATH:`yarn global bin`"
+export PATH=$PATH:"/usr/lib/jvm/jdk-17/bin"
 
 alias sudo='sudo '
 alias apt='nala'

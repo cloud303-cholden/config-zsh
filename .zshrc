@@ -94,9 +94,7 @@ export PATH=$PATH:"$HOME/.surrealdb"
 export PATH=$PATH:"$HOME/.local/share/flatpak/exports/bin"
 export PATH=$PATH:"$LOCAL_BIN"
 export PATH=$PATH:"$PYENV_ROOT/bin"
-export PATH=$PATH:"$HOME/.config/rofi/scripts"
-export PATH="$PATH:`yarn global bin`"
-export PATH=$PATH:"/usr/lib/jvm/jdk-17/bin"
+export PATH=$PATH:"$PYENV_ROOT/shims"
 
 alias sudo='sudo '
 alias apt='nala'
@@ -117,11 +115,16 @@ alias di='docker images --format "{\"image\":\"{{.Repository}}:{{.Tag}}\", \"des
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 eval "$(direnv hook zsh)"
 eval "$(atuin init zsh)"
 
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

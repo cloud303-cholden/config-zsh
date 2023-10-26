@@ -1,3 +1,5 @@
+# Profile startup performance
+# zmodload zsh/zprof
 # Set up the prompt
 eval "$(starship init zsh)"
 
@@ -125,6 +127,17 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Only initialize slow node commands on invocation
+# Credit: https://www.growingwiththeweb.com/2018/01/slow-nvm-init.html
+if [ -s "$XDG_CONFIG_HOME/nvm/nvm.sh" ] && [ ! "$(type -w __init_nvm)" = function ]; then
+  export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+  declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
+  function __init_nvm() {
+    for i in "${__node_commands[@]}"; do unalias $i; done
+    . "$NVM_DIR"/nvm.sh
+    unset __node_commands
+    unset -f __init_nvm
+  }
+  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+fi

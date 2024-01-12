@@ -121,7 +121,8 @@ eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 eval "$(direnv hook zsh)"
-eval "$(atuin init zsh)"
+eval "$(atuin init zsh --disable-up-arrow)"
+bindkey '^k' _atuin_search_widget
 
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 

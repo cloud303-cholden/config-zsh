@@ -25,6 +25,7 @@ bindkey -M vicmd 'y' vi-yank-xclip
 HISTSIZE=1000
 SAVEHIST=5000
 HISTFILE=~/.zsh_history
+PROMPT_EOL_MARK=''
 
 # Use modern completion system
 autoload -Uz compinit
@@ -110,6 +111,7 @@ alias tf='terraform'
 alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"
 alias run='./run.sh'
 alias jn='euporie-notebook'
+alias bun='bun -b'
 
 alias dc='docker ps --format "{\"name\":\"{{.Names}}\", \"id\":\"{{.ID}}\", \"image\":\"{{.Image}}\", \"status\":\"{{.Status}}\"}" | jq --slurp | yq -P'
 alias di='docker images --format "{\"image\":\"{{.Repository}}:{{.Tag}}\", \"description\":\"{{.ID}} ({{.Size}}, {{.CreatedSince}})\"}" | jq --slurp | yq -P'
@@ -141,3 +143,10 @@ if [ -s "$XDG_CONFIG_HOME/nvm/nvm.sh" ] && [ ! "$(type -w __init_nvm)" = functio
   }
   for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
 fi
+
+# bun completions
+[ -s "/home/ch/.bun/_bun" ] && source "/home/ch/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

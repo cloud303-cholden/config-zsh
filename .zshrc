@@ -71,11 +71,11 @@ export PYTHONDONTWRITEBYTECODE=1
 export KEYTIMEOUT=20
 export EDITOR='nvim'
 
-export FZF_DEFAULT_OPTS='
-  --height 40% --layout=reverse --border
-  --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C
-  --color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B
-'
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+  --border
+  --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#3b4252,hl+:#A3BE8C,border:#81A1C1
+  --color pointer:#3b4252,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#b1c89d,marker:#EBCB8B
+  --prompt=" ❯ " --pointer="."'
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#D08770,bold'
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -111,7 +111,6 @@ alias tf='terraform'
 alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"
 alias run='./run.sh'
 alias jn='euporie-notebook'
-alias bun='bun -b'
 
 alias dc='docker ps --format "{\"name\":\"{{.Names}}\", \"id\":\"{{.ID}}\", \"image\":\"{{.Image}}\", \"status\":\"{{.Status}}\"}" | jq --slurp | yq -P'
 alias di='docker images --format "{\"image\":\"{{.Repository}}:{{.Tag}}\", \"description\":\"{{.ID}} ({{.Size}}, {{.CreatedSince}})\"}" | jq --slurp | yq -P'

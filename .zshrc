@@ -1,90 +1,7 @@
 # Profile startup performance
 # zmodload zsh/zprof
-# Set up the prompt
+
 eval "$(starship init zsh)"
-
-setopt histignorealldups sharehistory
-
-# Use vi keybindings
-bindkey -v
-bindkey "^?" backward-delete-char
-bindkey -r "^J"
-bindkey -M viins 'jk' vi-cmd-mode
-bindkey '^[^M' self-insert-unmeta
-
-# Yank to the system clipboard
-function vi-yank-xclip {
-  zle vi-yank
-  echo -n "$CUTBUFFER" | xclip -selection clipboard
-}
-
-zle -N vi-yank-xclip
-bindkey -M vicmd 'y' vi-yank-xclip
-
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=5000
-HISTFILE=~/.zsh_history
-PROMPT_EOL_MARK=''
-
-# Use modern completion system
-autoload -Uz compinit
-compinit
-
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PIPX_DEFAULT_PYTHON="$PYENV_ROOT/versions/3.10.5/bin/python"
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:'/usr/lib/x86_64-linux-gnu/pkgconfig'
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:'/usr/share/pkgconfig'
-export BAT_THEME='Nord'
-export PYTHON3_HOST_PROG='/usr/bin/python3'
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export GIT_REPOS_DIR="$HOME/repos"
-export NVIM_CONFIG="$GIT_REPOS_DIR/config-nvim"
-export ZSH_CONFIG="$GIT_REPOS_DIR/config-zsh"
-export GOROOT='/usr/local/go'
-export GOPATH="$HOME/go"
-export LOCAL_BIN="$HOME/.local/bin"
-export HOMEBREW_PREFIX='/home/linuxbrew/.linuxbrew'
-export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
-export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
-export _ZL_CD='cd'
-export PYTHONDONTWRITEBYTECODE=1
-export KEYTIMEOUT=20
-export EDITOR='nvim'
-
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-  --border
-  --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#3b4252,hl+:#A3BE8C,border:#81A1C1
-  --color pointer:#3b4252,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#b1c89d,marker:#EBCB8B
-  --prompt=" ❯ " --pointer="."'
-
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#D08770,bold'
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-
-typeset -gA ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#BF616A,bold'
-ZSH_HIGHLIGHT_STYLES[path]='fg=#88C0D0,bold,underline'
-ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#5E81AC,bold'
-ZSH_HIGHLIGHT_STYLES[arg0]='fg=#81A1C1,bold'
 
 export PATH=$PATH:"$HOMEBREW_PREFIX/bin"
 export PATH=$PATH:"$HOMEBREW_PREFIX/sbin"
@@ -99,54 +16,16 @@ export PATH=$PATH:"$LOCAL_BIN"
 export PATH=$PATH:"$PYENV_ROOT/bin"
 export PATH=$PATH:"$PYENV_ROOT/shims"
 
-alias sudo='sudo '
 alias apt='nala'
 alias ll='exa -l -g --icons --group-directories-first --octal-permissions --no-filesize --time-style long-iso --no-permissions --no-user'
-alias lls='ll -s modified -r'
 alias la='ll -a'
 alias gs='git status -s'
-alias repos="cd $GIT_REPOS_DIR && git-status"
-alias n='nvim'
-alias tf='terraform'
-alias repo="git remote -v | awk 'NR==1 {print $2}' | cut -d ':' -f 2 | cut -d '.' -f 1"
 alias run='./run.sh'
-alias jn='euporie-notebook'
 
-alias dc='docker ps --format "{\"name\":\"{{.Names}}\", \"id\":\"{{.ID}}\", \"image\":\"{{.Image}}\", \"status\":\"{{.Status}}\"}" | jq --slurp | yq -P'
-alias di='docker images --format "{\"image\":\"{{.Repository}}:{{.Tag}}\", \"description\":\"{{.ID}} ({{.Size}}, {{.CreatedSince}})\"}" | jq --slurp | yq -P'
-
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 eval "$(direnv hook zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
-bindkey '^k' _atuin_search_widget
 
-test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
-
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
-
-# Only initialize slow node commands on invocation
-# Credit: https://www.growingwiththeweb.com/2018/01/slow-nvm-init.html
-if [ -s "$XDG_CONFIG_HOME/nvm/nvm.sh" ] && [ ! "$(type -w __init_nvm)" = function ]; then
-  export NVM_DIR="$XDG_CONFIG_HOME/nvm"
-  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-  declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
-  function __init_nvm() {
-    for i in "${__node_commands[@]}"; do unalias $i; done
-    . "$NVM_DIR"/nvm.sh
-    unset __node_commands
-    unset -f __init_nvm
-  }
-  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
-fi
-
-# bun completions
-[ -s "/home/ch/.bun/_bun" ] && source "/home/ch/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# Profile startup performance
+# zprof
